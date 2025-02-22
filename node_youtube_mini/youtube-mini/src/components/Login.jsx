@@ -1,37 +1,42 @@
-import React, { useEffect } from 'react'
-import '../style/Login.css'
+import React, { useEffect, useState } from 'react';
+import '../style/Login.css';
 
-const Login = () => {
+
+const LoginComponent = () => {
+    const [email, setEmail] = useState('');
+    const [pass_word, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+    const handleLogin = async (e) => {
+        console.log('login');
+    };
+
     useEffect(() => {
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
         const container = document.getElementById('container');
 
-        // Gắn sự kiện click cho nút Sign Up
-        signUpButton.addEventListener('click', () => {
-            container.classList.add('right-panel-active');
-        });
+        const handleSignUp = () => container.classList.add('right-panel-active');
+        const handleSignIn = () => container.classList.remove('right-panel-active');
 
-        // Gắn sự kiện click cho nút Sign In
-        signInButton.addEventListener('click', () => {
-            container.classList.remove('right-panel-active');
-        });
+        if (signUpButton && signInButton && container) {
+            signUpButton.addEventListener('click', handleSignUp);
+            signInButton.addEventListener('click', handleSignIn);
+        }
 
-        // Cleanup để tránh memory leaks
         return () => {
-            signUpButton.removeEventListener('click', () => {
-                container.classList.add('right-panel-active');
-            });
-            signInButton.removeEventListener('click', () => {
-                container.classList.remove('right-panel-active');
-            });
+            if (signUpButton && signInButton) {
+                signUpButton.removeEventListener('click', handleSignUp);
+                signInButton.removeEventListener('click', handleSignIn);
+            }
         };
     }, []);
 
     return (
         <div className="container-login" id="container">
+            {/* Sign Up Form */}
             <div className="form-container sign-up-container">
-                <form action="#">
+                <form>
                     <h1>Create Account</h1>
                     <div className="social-container">
                         <a href="#" className="social"><i className="fab fa-facebook-f" /></a>
@@ -42,11 +47,13 @@ const Login = () => {
                     <input type="text" placeholder="Name" />
                     <input type="email" placeholder="Email" />
                     <input type="password" placeholder="Password" />
-                    <button>Sign Up</button>
+                    <button type="submit">Sign Up</button>
                 </form>
             </div>
+
+            {/* Sign In Form */}
             <div className="form-container sign-in-container">
-                <form action="#">
+                <form onSubmit={handleLogin}>
                     <h1>Sign in</h1>
                     <div className="social-container">
                         <a href="#" className="social"><i className="fab fa-facebook-f" /></a>
@@ -54,12 +61,13 @@ const Login = () => {
                         <a href="#" className="social"><i className="fab fa-linkedin-in" /></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="email" placeholder="Email" onChange={(e)=> setEmail(e.target.value)}/>
+                    <input type="password" placeholder="Password" onChange={(e)=> setEmail(e.target.value)} />
                     <a href="#">Forgot your password?</a>
                     <button>Sign In</button>
                 </form>
             </div>
+
             <div className="overlay-container">
                 <div className="overlay">
                     <div className="overlay-panel overlay-left">
@@ -74,8 +82,9 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-        </div>
-    )
-}
 
-export default Login
+        </div>
+    );
+};
+
+export default LoginComponent;

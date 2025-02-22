@@ -2,7 +2,8 @@ import axios from 'axios';
 
 // Cấu hình axios
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000',
+  //baseURL: meta.env.VITE_BE_URL,
+  baseURL: "http://localhost:3000",
   timeout: 5000,
   headers: {
     "Content-Type": "application/json",

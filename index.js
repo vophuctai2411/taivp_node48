@@ -4,11 +4,13 @@
 import express from 'express';
 import connect from './db.js';
 import rootRoutes from './src/routes/rootRoutes.js';
+import cors from "cors"
 
 const app = express();
-app.use(express.json())
-
-app.use(rootRoutes)
+app.use(cors())
+app.use(express.json());
+app.use(express.static("."));
+app.use(rootRoutes);
 
 // khai bao api don gian
 // api route, function xu li api

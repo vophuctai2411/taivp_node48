@@ -207,7 +207,28 @@ INSERT INTO `users` (`user_id`, `full_name`, `email`, `avatar`, `pass_word`, `fa
 (2, 'Jame Smith', 'jame@gmail.com', 'jame.png', 'password', '123456', NULL, NULL, '2025-01-18 03:07:16'),
 (3, 'Ronaldo', 'ro@gmail.com', 'ronaldo.png', 'password', '123456', NULL, NULL, '2025-01-18 03:07:16');
 
+insert into video_types(type_name) values
+('Tất cả'),
+('Âm nhạc'),
+('Trực tiếp'),
+('Tin tức'),
+('Thiên nhiên'),
+('Hoạt họa'),
+('Gaming'),
+('Đã xem'),
+('Đề xuất mới')
 
+insert into videos(video_name, thumbnail, views, type_id, source) values
+('Learn Coding', 'thumbnail1.png', 100, 5, 'video.mp4'),
+('Learn React', 'thumbnail2.png', 200, 2, 'video.mp4'),
+('Learn Javascript', 'thumbnail3.png', 300, 4, 'video.mp4'),
+('Learn HTML', 'thumbnail4.png', 350, 6, 'video.mp4'),
+('Learn CSS', 'thumbnail5.png', 250, 3, 'video.mp4'),
+('Learn Node.js', 'thumbnail6.png', 400, 7, 'video.mp4'),
+('Learn Vue.js', 'thumbnail7.png', 150, 8, 'video.mp4'),
+('Learn Python', 'thumbnail8.png', 450, 9, 'video.mp4'),
+('Learn Flask', 'thumbnail2.png', 700, 2, 'video.mp4'),
+('Learn Ruby', 'thumbnail3.png', 880, 3, 'video.mp4')
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
