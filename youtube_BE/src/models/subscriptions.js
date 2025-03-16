@@ -1,54 +1,34 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class videos extends Model {
+export default class subscriptions extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    video_id: {
+    subscription_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    video_name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    thumbnail: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    views: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    type_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'video_types',
-        key: 'type_id'
-      }
-    },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'user_id'
       }
     },
-    source: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+    subscriber_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'user_id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'videos',
+    tableName: 'subscriptions',
     timestamps: true,
     indexes: [
       {
@@ -56,14 +36,7 @@ export default class videos extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "video_id" },
-        ]
-      },
-      {
-        name: "type_id",
-        using: "BTREE",
-        fields: [
-          { name: "type_id" },
+          { name: "subscription_id" },
         ]
       },
       {
@@ -71,6 +44,13 @@ export default class videos extends Model {
         using: "BTREE",
         fields: [
           { name: "user_id" },
+        ]
+      },
+      {
+        name: "subscriber_id",
+        using: "BTREE",
+        fields: [
+          { name: "subscriber_id" },
         ]
       },
     ]

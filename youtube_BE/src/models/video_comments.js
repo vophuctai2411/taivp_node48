@@ -1,38 +1,22 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class videos extends Model {
+export default class video_comments extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    video_id: {
+    comment_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    video_name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    thumbnail: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    description: {
+    content: {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    views: {
-      type: DataTypes.INTEGER,
+    reply_list: {
+      type: DataTypes.STRING(255),
       allowNull: true
-    },
-    type_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      references: {
-        model: 'video_types',
-        key: 'type_id'
-      }
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -42,13 +26,17 @@ export default class videos extends Model {
         key: 'user_id'
       }
     },
-    source: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+    video_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'videos',
+        key: 'video_id'
+      }
     }
   }, {
     sequelize,
-    tableName: 'videos',
+    tableName: 'video_comments',
     timestamps: true,
     indexes: [
       {
@@ -56,14 +44,7 @@ export default class videos extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "video_id" },
-        ]
-      },
-      {
-        name: "type_id",
-        using: "BTREE",
-        fields: [
-          { name: "type_id" },
+          { name: "comment_id" },
         ]
       },
       {
@@ -71,6 +52,13 @@ export default class videos extends Model {
         using: "BTREE",
         fields: [
           { name: "user_id" },
+        ]
+      },
+      {
+        name: "video_id",
+        using: "BTREE",
+        fields: [
+          { name: "video_id" },
         ]
       },
     ]

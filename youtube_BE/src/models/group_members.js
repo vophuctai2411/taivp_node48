@@ -1,69 +1,54 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class videos extends Model {
+export default class group_members extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    video_id: {
+    group_member_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    video_name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    thumbnail: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    views: {
+    group_id: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    type_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
-        model: 'video_types',
-        key: 'type_id'
+        model: 'groups',
+        key: 'group_id'
       }
     },
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'user_id'
       }
     },
-    source: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+    joined_at: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     sequelize,
-    tableName: 'videos',
-    timestamps: true,
+    tableName: 'group_members',
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "video_id" },
+          { name: "group_member_id" },
         ]
       },
       {
-        name: "type_id",
+        name: "group_id",
         using: "BTREE",
         fields: [
-          { name: "type_id" },
+          { name: "group_id" },
         ]
       },
       {

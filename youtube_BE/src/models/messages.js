@@ -1,40 +1,24 @@
 import _sequelize from 'sequelize';
 const { Model, Sequelize } = _sequelize;
 
-export default class videos extends Model {
+export default class messages extends Model {
   static init(sequelize, DataTypes) {
   return super.init({
-    video_id: {
+    message_id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    video_name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    thumbnail: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: true
-    },
-    views: {
+    sender_id: {
       type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    type_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
-        model: 'video_types',
-        key: 'type_id'
+        model: 'users',
+        key: 'user_id'
       }
     },
-    user_id: {
+    receiver_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
@@ -42,13 +26,21 @@ export default class videos extends Model {
         key: 'user_id'
       }
     },
-    source: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+    group_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'groups',
+        key: 'group_id'
+      }
+    },
+    message_text: {
+      type: DataTypes.TEXT,
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'videos',
+    tableName: 'messages',
     timestamps: true,
     indexes: [
       {
@@ -56,21 +48,28 @@ export default class videos extends Model {
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "video_id" },
+          { name: "message_id" },
         ]
       },
       {
-        name: "type_id",
+        name: "sender_id",
         using: "BTREE",
         fields: [
-          { name: "type_id" },
+          { name: "sender_id" },
         ]
       },
       {
-        name: "user_id",
+        name: "receiver_id",
         using: "BTREE",
         fields: [
-          { name: "user_id" },
+          { name: "receiver_id" },
+        ]
+      },
+      {
+        name: "group_id",
+        using: "BTREE",
+        fields: [
+          { name: "group_id" },
         ]
       },
     ]

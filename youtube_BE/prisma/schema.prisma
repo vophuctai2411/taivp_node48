@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model groups {
+  group_id   Int       @id @default(autoincrement())
+  group_name String    @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model menu_sidebar {
+  id         Int       @id @default(autoincrement())
+  item_name  String?   @db.VarChar(255)
+  icon       String?   @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model permissions {
+  permission_id   Int     @id @default(autoincrement())
+  permission_name String  @unique(map: "permission_name") @db.VarChar(50)
+  description     String? @db.Text
+}
+
+model roles {
+  role_id   Int    @id @default(autoincrement())
+  role_name String @db.VarChar(50)
+}
+
+model users {
+  user_id       Int       @id @default(autoincrement())
+  full_name     String    @db.VarChar(255)
+  email         String    @db.VarChar(255)
+  avatar        String?   @db.VarChar(255)
+  pass_word     String    @db.VarChar(255)
+  face_app_id   String?   @db.VarChar(100)
+  refresh_token String?   @db.Text
+  secret_code   String?   @db.VarChar(50)
+  created_at    DateTime? @default(now()) @db.Timestamp(0)
+  videos        videos[]
+}
+
+model video_types {
+  type_id    Int       @id @default(autoincrement())
+  type_name  String    @db.VarChar(255)
+  icon       String?   @db.VarChar(255)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  videos     videos[]
+}
+
+model videos {
+  video_id    Int          @id @default(autoincrement())
+  video_name  String       @db.VarChar(255)
+  thumbnail   String?      @db.VarChar(255)
+  description String?      @db.Text
+  views       Int?
+  type_id     Int?
+  user_id     Int?
+  source      String?      @db.VarChar(255)
+  created_at  DateTime?    @default(now()) @db.Timestamp(0)
+  video_types video_types? @relation(fields: [type_id], references: [type_id], onDelete: NoAction, onUpdate: NoAction, map: "videos_ibfk_1")
+  users       users?       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "videos_ibfk_2")
+
+  @@index([type_id], map: "type_id")
+  @@index([user_id], map: "user_id")
+}

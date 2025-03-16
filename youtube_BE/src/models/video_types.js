@@ -21,7 +21,7 @@ export default class video_types extends Model {
   }, {
     sequelize,
     tableName: 'video_types',
-    timestamps: false,
+    timestamps: true,
     indexes: [
       {
         name: "PRIMARY",
