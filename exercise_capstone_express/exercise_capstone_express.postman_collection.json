@@ -402,7 +402,45 @@
 		},
 		{
 			"name": "comment",
-			"item": []
+			"item": [
+				{
+					"name": "add-comment",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzM0NzkxOCwiZXhwIjoxNzQzMzU1MTE4fQ.MOvS-ZdibKem3VRnSjs9maZNVGDVdfMPSbG-WFYHTKM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nguoi_dung_id\": 5,\n  \"hinh_id\": 1,\n  \"noi_dung\": \"Bức ảnh này thật đẹp!\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/comments/add-comment",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comments",
+								"add-comment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
