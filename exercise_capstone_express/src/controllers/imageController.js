@@ -50,9 +50,9 @@ const findImageAndUserById = async (req, res) => {
     nd.email,
     nd.ho_ten,
     nd.anh_dai_dien
-FROM hinh_anh AS ha
-JOIN nguoi_dung AS nd ON ha.nguoi_dung_id = nd.nguoi_dung_id
-WHERE ha.hinh_id = ${id};
+    FROM hinh_anh AS ha
+    JOIN nguoi_dung AS nd ON ha.nguoi_dung_id = nd.nguoi_dung_id
+    WHERE ha.hinh_id = ${id};
   `);
 
     return res.status(200).json(data);
@@ -62,68 +62,90 @@ WHERE ha.hinh_id = ${id};
   }
 };
 
-const createImage = async (req, res) => {
+const findCommentByImageId = async (req, res) => {
   try {
-    const queryString = `INSERT INTO images(image_name, thumbnail, description) VALUES(?, ?, ?)`;
-    let body = req.body;
-    let { image_name, thumbnail, description } = body;
-    const [data] = await connect.execute(queryString, [
-      image_name,
-      thumbnail,
-      description,
-    ]);
-    return res.send(data);
-  } catch (error) {
-    res.send(error);
-  }
-};
+    const { id } = req.params;
+    console.log(id);
 
-const getImageType = async (req, res) => {
-  try {
-    const listImageType = await models.image_types.findAll();
-    return res.status(200).json(listImageType);
+    const [data] = await db_connect.query(`
+      SELECT 
+    bl.binh_luan_id, 
+    bl.hinh_id, 
+    bl.noi_dung, 
+    nd.nguoi_dung_id, 
+    nd.email, 
+    nd.ho_ten, 
+    nd.anh_dai_dien
+    FROM binh_luan AS bl
+    JOIN nguoi_dung AS nd ON bl.nguoi_dung_id = nd.nguoi_dung_id
+    WHERE bl.hinh_id = ${id};
+  `);
+
+    return res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "List Image Type Error" });
+    return res.status(500).json({ message: "List Image Error" });
   }
 };
 
-const createImageType = async (req, res) => {
+const isSaveImage = async (req, res) => {
   try {
-    const { type_name } = req.body;
-    const result = await models.image_types.create({
-      type_name: type_name,
+    const { id } = req.params;
+    console.log(id);
+
+    const [data] = await db_connect.query(`
+      SELECT * from hinh_anh where hinh_id=${id};
+  `);
+
+    if (data?.length > 0) return res.status(200).json({ data, isSave: true });
+    else return res.status(200).json({ isSave: false });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "List Image Error" });
+  }
+};
+
+const findImageByUserId = async (req, res) => {
+  try {
+    const { userid } = req.params;
+    console.log(userid);
+
+    const [data] = await db_connect.query(`
+      SELECT 
+    hinh_id, 
+    ten_hinh, 
+    duong_dan, 
+    mo_ta, 
+    nguoi_dung_id
+    FROM hinh_anh
+    WHERE nguoi_dung_id =  ${userid};
+  `);
+
+    return res.status(200).json(data);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "List Image Error" });
+  }
+};
+const insertImage = async (req, res) => {
+  const { ten_hinh, duong_dan, mo_ta, nguoi_dung_id } = req.body;
+  console.log(ten_hinh, duong_dan, mo_ta, nguoi_dung_id);
+  try {
+    const [result] = await db_connect.query(
+      `
+    INSERT INTO hinh_anh (ten_hinh, duong_dan, mo_ta, nguoi_dung_id) 
+    VALUES (?, ?, ?, ?);
+  `,
+      [ten_hinh, duong_dan, mo_ta, nguoi_dung_id]
+    ); // Secure parameterized query
+
+    return res.send({
+      message: "Ảnh đã được đăng thành công!",
+      image_id: result.insertId,
     });
-
-    return res.status(200).json("ngon ngon");
   } catch (error) {
-    return res.status(500).json(error);
-  }
-};
-
-const updateImage = async (req, res) => {
-  try {
-    const { imageId } = req.params;
-    const { image_name } = req.body;
-
-    console.log(imageId);
-
-    const result = await models.hinh_anh.update(
-      {
-        image_name: image_name,
-      },
-      {
-        where: {
-          image_id: imageId,
-        },
-      }
-    );
-
-    console.log("Sau khi update: ", { result });
-
-    return res.status(200).json("ngon ngon");
-  } catch (error) {
-    return res.status(500).json(error);
+    console.error(error);
+    return res.status(500).send("Lỗi khi đăng ảnh.");
   }
 };
 
@@ -135,13 +157,10 @@ const deleteImage = async (req, res) => {
 
     const result = await models.hinh_anh.destroy({
       where: {
-        image_id: imageId,
+        hinh_id: imageId,
       },
     });
-
-    console.log("Sau khi delete: ", { result });
-
-    return res.status(200).json("ngon ngon");
+    return res.status(200).json("Da xoa hinh anh");
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -151,9 +170,9 @@ export {
   listImage,
   findImageByName,
   findImageAndUserById,
-  createImage,
-  getImageType,
-  createImageType,
-  updateImage,
+  findCommentByImageId,
+  isSaveImage,
+  findImageByUserId,
   deleteImage,
+  insertImage,
 };

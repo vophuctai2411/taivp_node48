@@ -1,13 +1,13 @@
 import express from "express";
 import {
-  createImage,
   listImage,
-  updateImage,
   deleteImage,
-  getImageType,
-  createImageType,
   findImageByName,
   findImageAndUserById,
+  findCommentByImageId,
+  isSaveImage,
+  findImageByUserId,
+  insertImage,
 } from "../controllers/imageController.js";
 
 import { middlewareToken } from "../config/jwt.js";
@@ -21,11 +21,18 @@ imageRoutes.get(
   middlewareToken,
   findImageAndUserById
 );
-
-imageRoutes.post("/create-image", createImage);
-imageRoutes.get("/get-image-types", getImageType);
-imageRoutes.put("/update-image/:imageId", updateImage);
-imageRoutes.delete("/delete-image/:imageId", deleteImage);
-imageRoutes.post("/create-image-type", createImageType);
+imageRoutes.get(
+  "/find-comment-by-image-id/:id",
+  middlewareToken,
+  findCommentByImageId
+);
+imageRoutes.get("/is-save-image/:id", middlewareToken, isSaveImage);
+imageRoutes.get(
+  "/find-image-by-userid/:userid",
+  middlewareToken,
+  findImageByUserId
+);
+imageRoutes.delete("/delete-image/:imageId", middlewareToken, deleteImage);
+imageRoutes.post("/create-image", middlewareToken, insertImage);
 
 export default imageRoutes;

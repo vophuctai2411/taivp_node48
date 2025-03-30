@@ -1,11 +1,7 @@
 import initModels from "../models/init-models.js";
 import connect from "../models/connect.js";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import transporter from "../config/transporter.js";
 import { createAccessToken } from "../config/jwt.js";
-import crypto from "crypto";
-import { sendMailForgotPassword } from "../utils/sendMail.js";
 
 const models = initModels(connect);
 

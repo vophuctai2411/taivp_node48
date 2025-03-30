@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "a208c639-58f0-4061-92bd-7b3a480af5f0",
+		"name": "exercise_capstone_express",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13056855"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"vophuctai24112@gmail.com\",\n    \"mat_khau\": \"12345\",\n    \"ho_ten\": \"Vo Phuc Tai\",\n    \"tuoi\": 25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"vophuctai2411@gmail.com\",\n    \"mat_khau\": \"12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "image",
+			"item": [
+				{
+					"name": "list-image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzMzOTc3MSwiZXhwIjoxNzQzMzQ2OTcxfQ.vozbHbSWXervO73pL8yhPGBBlbHnXBvKw3DmYYAxreM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzMzOTc3MSwiZXhwIjoxNzQzMzQ2OTcxfQ.vozbHbSWXervO73pL8yhPGBBlbHnXBvKw3DmYYAxreM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/images/list-image",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"list-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-image-by-name",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzMzOTc3MSwiZXhwIjoxNzQzMzQ2OTcxfQ.vozbHbSWXervO73pL8yhPGBBlbHnXBvKw3DmYYAxreM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/images/find-image-by-name?ten_hinh=image3.jpg",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"find-image-by-name"
+							],
+							"query": [
+								{
+									"key": "ten_hinh",
+									"value": "image3.jpg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-image-and-user-by-id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzMzOTc3MSwiZXhwIjoxNzQzMzQ2OTcxfQ.vozbHbSWXervO73pL8yhPGBBlbHnXBvKw3DmYYAxreM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/images/find-image-and-user-by-id/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"find-image-and-user-by-id",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-comment-by-image-id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzMzOTc3MSwiZXhwIjoxNzQzMzQ2OTcxfQ.vozbHbSWXervO73pL8yhPGBBlbHnXBvKw3DmYYAxreM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/images/find-comment-by-image-id/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"find-comment-by-image-id",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "is-save-image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzMzOTc3MSwiZXhwIjoxNzQzMzQ2OTcxfQ.vozbHbSWXervO73pL8yhPGBBlbHnXBvKw3DmYYAxreM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/images/is-save-image/3",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"is-save-image",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzM0NzkxOCwiZXhwIjoxNzQzMzU1MTE4fQ.MOvS-ZdibKem3VRnSjs9maZNVGDVdfMPSbG-WFYHTKM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/images/delete-image/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"delete-image",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-image-by-userid",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzM0NzkxOCwiZXhwIjoxNzQzMzU1MTE4fQ.MOvS-ZdibKem3VRnSjs9maZNVGDVdfMPSbG-WFYHTKM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/images/find-image-by-userid/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"find-image-by-userid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-image",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzM0NzkxOCwiZXhwIjoxNzQzMzU1MTE4fQ.MOvS-ZdibKem3VRnSjs9maZNVGDVdfMPSbG-WFYHTKM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ten_hinh\": \"hinh_moi\", \n    \"duong_dan\": \"duong_dan_moi\", \n    \"mo_ta\": \"mo ta hinh anh moi\", \n    \"nguoi_dung_id\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/images/create-image",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"images",
+								"create-image"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get-users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzM0NzkxOCwiZXhwIjoxNzQzMzU1MTE4fQ.MOvS-ZdibKem3VRnSjs9maZNVGDVdfMPSbG-WFYHTKM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/get-users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"get-users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6NH0sImlhdCI6MTc0MzM0NzkxOCwiZXhwIjoxNzQzMzU1MTE4fQ.MOvS-ZdibKem3VRnSjs9maZNVGDVdfMPSbG-WFYHTKM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ho_ten\": \"Vo Phuc Tai\",\n    \"anh_dai_dien\": \"alex.png\",\n    \"tuoi\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/update-user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"update-user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": []
+		}
+	]
+}
